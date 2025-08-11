@@ -1,0 +1,2 @@
+# curiara
+proyecto de enseñanza 
