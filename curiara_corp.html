@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curiara - Aplicación de Enseñanza del Lenguaje</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="game-container">
+    <!-- Barra Superior -->
+    <div id="header">
+      <div id="logo">Curiara</div>
+      <div id="score">
+        <span><img src="https://img.icons8.com/emoji/48/000000/star-emoji.png" alt="Puntos"> <span id="points">100</span></span>
+        <span><img src="https://img.icons8.com/emoji/48/000000/coin.png" alt="Monedas"> <span id="coins">50</span></span>
+      </div>
+    </div>
+    <!-- Mapa Interactivo -->
+    <div id="map">
+      <div class="river-path" id="river-path"></div>
+      <div class="canoe" id="canoe"></div>
+      <div class="amazon-river"></div>
+      <div class="jungle-overlay" id="jungle-overlay"></div>
+    </div>
+    <!-- Barra Inferior -->
+    <div id="footer">
+      <button id="play-btn">
+        <img src="https://img.icons8.com/ios-filled/50/2ECC71/play.png" alt="Jugar">
+        Jugar
+      </button>
+      <button id="worlds-btn">
+        <img src="https://img.icons8.com/ios-filled/50/2ECC71/globe.png" alt="Mundos">
+        Mundos
+      </button>
+      <button id="rewards-btn">
+        <img src="https://img.icons8.com/ios-filled/50/2ECC71/trophy.png" alt="Recompensas">
+        Recompensas
+      </button>
+      <button id="progress-btn">
+        <img src="https://img.icons8.com/ios-filled/50/2ECC71/checklist.png" alt="Progreso">
+        Mi Progreso
+      </button>
+    </div>
+  </div>
+  <!-- Modal para actividades -->
+  <div id="activity-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="activity-title">Actividad</h2>
+      <div id="activity-content" class="activity-content">
+        Aquí se mostrará la actividad de enseñanza del lenguaje.
+      </div>
+      <div class="level-info" id="level-info">Nivel 1 de 10</div>
+      <div class="example-audio">
+        <h3>🔊 Escucha el ejemplo</h3>
+        <div class="audio-controls">
+          <button class="audio-btn" id="play-example">
+            <span>▶</span> Reproducir Ejemplo
+          </button>
+        </div>
+      </div>
+      <div class="checklist">
+        <div class="checklist-item" id="step1">
+          <i>○</i> <span>Escuchar el ejemplo</span>
+        </div>
+        <div class="checklist-item" id="step2">
+          <i>○</i> <span>Practicar la pronunciación</span>
+        </div>
+        <div class="checklist-item" id="step3">
+          <i>○</i> <span>Grabar tu voz</span>
+        </div>
+      </div>
+      <div class="record-animation" id="record-animation">
+        🎤 Grabando... Espere 3 segundos
+      </div>
+      <div class="activity-options">
+        <button class="activity-btn record-btn" id="record-btn">
+          <span>●</span> Grabar Mi Voz
+        </button>
+      </div>
+      <button class="btn-primary" id="complete-activity">Completar Actividad</button>
+    </div>
+  </div>
+  <!-- Modal para Mundos -->
+  <div id="worlds-modal" class="modal">
+    <div class="world-modal-content">
+      <span class="close">&times;</span>
+      <h2 class="world-title">🌍 Mundos de la Amazonía</h2>
+      <div id="worlds-list">
+        <div class="world-item" data-world="1">
+          <h3>🌿 Selva Profunda</h3>
+          <p>Aprende palabras de animales y plantas</p>
+        </div>
+        <div class="world-item" data-world="2">
+          <h3>💧 Ríos y Cauces</h3>
+          <p>Actividades con sonidos del agua</p>
+        </div>
+        <div class="world-item" data-world="3">
+          <h3>🌤️ Claros del Bosque</h3>
+          <p>Juegos de luz y sombra con palabras</p>
+        </div>
+        <div class="world-item" data-world="4">
+          <h3>🌧️ Lluvias Tropicales</h3>
+          <p>Onomatopeyas y sonidos de la lluvia</p>
+        </div>
+      </div>
+      <div class="nav-buttons">
+        <button class="nav-button close-worlds">Cerrar</button>
+      </div>
+    </div>
+  </div>
+  <!-- Modal para Recompensas -->
+  <div id="rewards-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>🏆 Mis Recompensas</h2>
+      <div id="rewards-list">
+        <div class="reward-item">
+          <span>🌟 Estrella del Habla</span>
+          <span>🔒</span>
+        </div>
+        <div class="reward-item">
+          <span>🐸 Rana Parlante</span>
+          <button class="btn-primary" data-cost="10">Canjear (10)</button>
+        </div>
+        <div class="reward-item">
+          <span>🦜 Loro Repetidor</span>
+          <button class="btn-primary" data-cost="25">Canjear (25)</button>
+        </div>
+        <div class="reward-item">
+          <span>🐵 Mono Conversador</span>
+          <button class="btn-primary" data-cost="50">Canjear (50)</button>
+        </div>
+      </div>
+      <div class="nav-buttons">
+        <button class="nav-button close-rewards">Cerrar</button>
+      </div>
+    </div>
+  </div>
+  <!-- Modal para Progreso -->
+  <div id="progress-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>📈 Mi Progreso</h2>
+      <div id="progress-content">
+        <p>Nivel actual: <strong id="current-level">1</strong></p>
+        <p>Experiencia:</p>
+        <div class="progress-bar">
+          <div class="progress-fill" id="exp-bar"></div>
+        </div>
+        <p id="exp-text">0/1000 puntos</p>
+        <p>Habilidades desarrolladas:</p>
+        <div class="progress-item">
+          <p>🗣️ Pronunciación: <span id="pronunciation">0%</span></p>
+        </div>
+        <div class="progress-item">
+          <p>📖 Vocabulario: <span id="vocabulary">0%</span></p>
+        </div>
+        <div class="progress-item">
+          <p>💬 Formación de oraciones: <span id="sentences">0%</span></p>
+        </div>
+      </div>
+      <div class="nav-buttons">
+        <button class="nav-button close-progress">Cerrar</button>
+      </div>
+    </div>
+  </div>
+  <!-- Modales para mundos específicos -->
+  <div id="world-1-modal" class="modal">
+    <div class="world-modal-content">
+      <span class="close">&times;</span>
+      <div class="world-background world-1"></div>
+      <h2 class="world-title">🌿 Selva Profunda</h2>
+      <p class="world-description">En este mundo aprenderás palabras de animales y plantas típicos de la selva.</p>
+      <button class="btn-primary" id="start-world-1">Entrar al Mundo</button>
+    </div>
+  </div>
+  <div id="world-2-modal" class="modal">
+    <div class="world-modal-content">
+      <span class="close">&times;</span>
+      <div class="world-background world-2"></div>
+      <h2 class="world-title">💧 Ríos y Cauces</h2>
+      <p class="world-description">Descubre los sonidos del agua y las palabras relacionadas con los ríos y cauces.</p>
+      <button class="btn-primary" id="start-world-2">Entrar al Mundo</button>
+    </div>
+  </div>
+  <div id="world-3-modal" class="modal">
+    <div class="world-modal-content">
+      <span class="close">&times;</span>
+      <div class="world-background world-3"></div>
+      <h2 class="world-title">🌤️ Claros del Bosque</h2>
+      <p class="world-description">Juega con luces y sombras mientras aprendes nuevas palabras.</p>
+      <button class="btn-primary" id="start-world-3">Entrar al Mundo</button>
+    </div>
+  </div>
+  <div id="world-4-modal" class="modal">
+    <div class="world-modal-content">
+      <span class="close">&times;</span>
+      <div class="world-background world-4"></div>
+      <h2 class="world-title">🌧️ Lluvias Tropicales</h2>
+      <p class="world-description">Aprende onomatopeyas y sonidos de la lluvia en esta aventura.</p>
+      <button class="btn-primary" id="start-world-4">Entrar al Mundo</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
